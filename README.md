@@ -12,7 +12,7 @@
       Demo
     </a>
     <span> | </span>
-    <a href="https://{your-url-to-the-solution}" target="_blank">
+    <a href="https://devchallenges.io/solutions/yilgjYXtwan7by4oOpwQ" target="_blank">
       Solution
     </a>
     <span> | </span>
@@ -87,9 +87,8 @@ This application/site was created as a submission to a [DevChallenges](https://d
 - User story: I can see a visibility indicator
 - User story: I can see the air pressure number
 - User story(optional): I can request my current location weather
-- User story(optional): I can convert temperature in Celcius to Fahrenheit and vice versa
-
 
 ## Acknowledgements
 - [material-icons](https://mui.com/)
+- [Firebase](https://firebase.google.com)
 
