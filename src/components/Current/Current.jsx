@@ -18,6 +18,7 @@ const Current = () => {
     const position = await getGeoLocation();
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
+    console.log(lat,lon)
     setLoading(true);
     try {
       const data = await fetchForecastData({ lon, lat });
