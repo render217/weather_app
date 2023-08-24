@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGlobalState } from "../../context/GlobalContextProvider";
 import Skeleton from "@mui/material/Skeleton";
-import { getFormatedDate, kelvinToCelsius } from "../../util/helper";
+import { getFormatedDate, getGeoLocation, getImage, kelvinToCelsius } from "../../util/helper";
+import Loader from "../Loader/Loader";
+import { fetchForecastData } from "../../api/api";
 const Current = () => {
-  const { toggleSearch, currentForecast, currentCity } = useGlobalState();
-  console.log(currentForecast, currentCity);
+  const { toggleSearch, currentForecast, currentCity, setForecast, resestData } = useGlobalState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   let condition = currentForecast?.main === undefined ? null : currentForecast?.weather[0]?.main;
-  let date = getFormatedDate(currentForecast?.dt_txt).startsWith('undefined') ? null :getFormatedDate(currentForecast?.dt_txt) ;
+  let date = getFormatedDate(currentForecast?.dt_txt).startsWith('undefined') ? null : getFormatedDate(currentForecast?.dt_txt);
   let cityname = currentCity.name;
-  let currentTemp = kelvinToCelsius(currentForecast?.main?.temp) === 'NaN' ? null :  kelvinToCelsius(currentForecast?.main?.temp);
+  let currentTemp = kelvinToCelsius(currentForecast?.main?.temp) === 'NaN' ? null : kelvinToCelsius(currentForecast?.main?.temp);
+  const image = currentForecast?.main === undefined ? null : getImage(currentForecast?.weather[0].main);
 
+  const getMyLocation = async () => {
+    const position = await getGeoLocation();
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    setLoading(true);
+    try {
+      const data = await fetchForecastData({ lon, lat });
+      setForecast(data)
+    } catch (error) {
+      setError(error)
+      resestData()
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <div className="current">
       <div className="container">
@@ -17,19 +36,23 @@ const Current = () => {
           <div className="search" onClick={toggleSearch}>
             Search for places
           </div>
-          <div className="location">
+          <div className="location" onClick={getMyLocation}>
             <i className="fa-solid fa-location-dot"></i>
           </div>
         </header>
+        {loading && <Loader />}
+        {/* {error && <p className="error">{error}</p>} */}
         <div className="img-container">
           <img className="background-img" alt="" />
-          <img src="/images/Shower.png" alt="" />
-          {/* <Skeleton
-            variant="circular"
-            width={150}
-            height={150}
-            sx={{ bgcolor: "#333755", marginInline: "auto" }}
-          /> */}
+          <img src={image || (
+            <Skeleton
+              variant="circular"
+              width={150}
+              height={150}
+              sx={{ bgcolor: "#333755", marginInline: "auto" }}
+            />
+          )} alt="" />
+
         </div>
         <div className="weather-info">
           <div className="title">

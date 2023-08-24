@@ -5,7 +5,7 @@ import { useGlobalState } from "../../../context/GlobalContextProvider";
 import DayCardSkeleton from "./DayCardSkeleton";
 const DayCardList = () => {
   const { forecastData } = useGlobalState();
-  console.log(forecastData);
+  // console.log(forecastData);
   return (
     <div className="day-card-list">
       {forecastData &&

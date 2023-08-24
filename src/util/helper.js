@@ -22,7 +22,8 @@ export async function getFiveDaysForecast(data) {
   for (let i = 0; i < list_of_weather_by_time.length; i++) {
     all_time.push(list_of_weather_by_time[i].dt_txt);
   }
-  console.log(all_time);
+  // console.log(all_time);
+  
   // filter the array all_time
   // and get the 5 day time;
   let five_days_time = filterFirstConsecutiveDates(all_time);
@@ -35,7 +36,7 @@ export async function getFiveDaysForecast(data) {
     }
   }
 
-  return { weather_data: five_days_weather, city: data["city"] };
+  return { weather_data: five_days_weather.slice(0,five_days_weather.length - 1), city: data["city"] };
 }
 
 export function getFormatedDate(inputDateString) {
@@ -71,8 +72,8 @@ export function getFormatedDate(inputDateString) {
     inputDate.getFullYear() === today.getFullYear()
   ) {
     const month = monthsOfYear[inputDate.getMonth()];
-    const year = inputDate.getFullYear();
-    formattedDate = `Today, ${month} ${year}`;
+    // const year = inputDate.getFullYear();
+    formattedDate = `Today, ${month}`;
   } else if (
     inputDate.getDate() === tomorrow.getDate() &&
     inputDate.getMonth() === tomorrow.getMonth() &&
@@ -89,8 +90,6 @@ export function getFormatedDate(inputDateString) {
   return formattedDate;
 }
 
-
-
 export function kelvinToCelsius(kelvin) {
   const celsius = kelvin - 273.15;
   return celsius.toFixed(2);
@@ -101,10 +100,9 @@ export function celsiusToFahrenheit(celsius) {
   return fahrenheit.toFixed(2);
 }
 
-
 export function fahrenheitToCelsius(fahrenheit) {
-    const celsius = (fahrenheit - 32) * 5/9;
-    return celsius.toFixed(2);
+  const celsius = ((fahrenheit - 32) * 5) / 9;
+  return celsius.toFixed(2);
 }
 
 export function convertMetersToMiles(meters) {
@@ -112,8 +110,37 @@ export function convertMetersToMiles(meters) {
   return miles.toFixed(2);
 }
 
-
 export function convertMpsToMph(mps) {
   const mph = mps * 2.23694;
   return mph.toFixed(2);
-};
+}
+
+export async function getGeoLocation() {
+  if (navigator.geolocation) {
+    const position = new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+    return position;
+  } else {
+    return { position: null };
+  }
+}
+
+export function getImage(weather_condition){
+  const image_type = {
+    'Clouds':'/images/HeavyCloud.png',
+    'Rain':'/images/HeavyRain.png',
+    'Clear':'/images/Clear.png',
+    'Thunderstorm':'/images/Thunderstorm.png',
+    'Drizzle':'/images/Drizzle.png',
+    'Snow':'/images/Snow.png',
+    'Hail':'/images/Hail.png',
+    'Sleet':'/images/Sleet.png',
+    'Snow':'/images/Snow.png'
+  }
+  if(image_type[weather_condition]){
+    return image_type[weather_condition];
+  }else{
+    return image_type['Clear']
+  }
+}

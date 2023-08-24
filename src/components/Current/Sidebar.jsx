@@ -20,7 +20,6 @@ const Sidebar = () => {
         return setError("Enter valid City Name");
       }
       setSearchData(data);
-      console.log(data);
     } catch (error) {
       setError(error.message);
       resestData()
@@ -78,7 +77,6 @@ const CityCard = (props) => {
       const data = await fetchForecastData({ lon, lat });
       setForecast(data)
       toggleSearch();
-      console.log(data)
     } catch (error) {
       setError(error)
       resestData()

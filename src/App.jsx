@@ -6,14 +6,17 @@ import Sidebar from "./components/Current/Sidebar";
 
 
 const App = () => {
-  const{ isSearch} = useGlobalState();
+  const { isSearch, setIsSearch } = useGlobalState();
+  const closeSearch = (e) =>{
+    setIsSearch(false)
+  }
   return (
     <div>
       <main className="main-layout">
         <div className="side-content">
-          {isSearch ? <Sidebar/> : <Current />}
+          {isSearch ? <Sidebar /> : <Current />}
         </div>
-        <div className="main-content">
+        <div className="main-content" onClick={closeSearch}>
           <Dashboard />
         </div>
       </main>

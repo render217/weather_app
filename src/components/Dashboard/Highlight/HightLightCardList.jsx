@@ -6,7 +6,7 @@ import { convertMetersToMiles, convertMpsToMph } from "../../../util/helper";
 
 const HightLightCardList = () => {
   const { currentForecast } = useGlobalState();
-  console.log(currentForecast);
+  // console.log(currentForecast);
   return (
     <div className="highlight-list">
       {currentForecast?.main ? (

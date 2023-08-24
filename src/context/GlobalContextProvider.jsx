@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import { getFormatedDate } from "../util/helper";
 
 const GlobalContext = createContext();
 const GlobalContextProvider = ({ children }) => {
@@ -7,6 +8,7 @@ const GlobalContextProvider = ({ children }) => {
   const [searchData, setSearchData] = useState([]);
   const [forecastData, setForecastData] = useState([]);
   const [currentForecast,setCurrentForecast] = useState({});
+  const [selectedHighlightTitle,setSelectedHighlightTitle] = useState("Today's")
   const toggleSearch = () => setIsSearch(!isSearch);
   const [currentCity,setCurrentCity] = useState({});
   
@@ -14,13 +16,14 @@ const GlobalContextProvider = ({ children }) => {
     setSearchData([]);
     setForecastData([]);
     setCurrentCity('')
-    setCurrentForecast({})
+    setCurrentForecast({});
+    setSelectedHighlightTitle("Today's")
   }
   const setForecast = (data) =>{
     setCurrentCity(data.city);
-    setForecastData(data.weather_data.slice(1))
+    setForecastData(data.weather_data)
     setCurrentForecast(data.weather_data[0]);
-
+    // setSelectedHighlightTitle(getFormatedDate(data.dt_txt))
   }
   const value = {
     isSearch,
@@ -28,8 +31,11 @@ const GlobalContextProvider = ({ children }) => {
     forecastData,
     currentCity,
     currentForecast,
+    selectedHighlightTitle,
+    setIsSearch,
     setForecast,
     setCurrentForecast,
+    setSelectedHighlightTitle,
     setSearchData,
     toggleSearch,
     resestData

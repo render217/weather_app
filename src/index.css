@@ -385,16 +385,21 @@ button {
   transition: all 280ms ease-in;
   border-radius: 4px;
   font-weight: var(--fw-500);
+  display: flex;
+  flex-direction: column;
 }
 
 .day-card:hover {
   background-color: var(--clr-bg-lightblue-trans);
 }
-
+.day-card .date{
+  font-size:var(--fs-12px);
+}
 .day-card .img-container {
   /* border:1px solid whitesmoke; */
   width: 90%;
   margin-inline: auto;
+  flex:1;
 }
 
 .day-card .temp-container {
