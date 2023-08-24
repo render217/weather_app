@@ -18,7 +18,7 @@ const Current = () => {
     const position = await getGeoLocation();
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
-    console.log(lat,lon)
+    // console.log(lat,lon)
     setLoading(true);
     try {
       const data = await fetchForecastData({ lon, lat });
@@ -42,7 +42,7 @@ const Current = () => {
           </div>
         </header>
         {loading && <Loader />}
-        {/* {error && <p className="error">{error}</p>} */}
+        {error && <p className="error">{error}</p>}
         <div className="img-container">
           <img className="background-img" alt="" />
           <img src={image || (

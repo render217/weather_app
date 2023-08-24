@@ -11,7 +11,7 @@ const DayCard = (props) => {
   const image = getImage( data.weather[0].main)
 
   
-  console.log(data.weather[0].main)
+  // console.log(data.weather[0].main)
    return (
     <div className="day-card" onClick={()=>{
       setCurrentForecast(data)
