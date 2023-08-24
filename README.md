@@ -1,6 +1,6 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="center">My Gallery</h1>
+<h1 align="center">Weather app</h1>
 
 <div align="center">
    Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
@@ -8,7 +8,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}" target="_blank">
+    <a href="https://weather-forecast-app-87567.web.app/" target="_blank">
       Demo
     </a>
     <span> | </span>
